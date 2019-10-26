@@ -25,4 +25,10 @@ public class InkBox : MonoBehaviour
         colors.Add("GREEN", Color.green);
         colors.Add("MAGENTA", Color.magenta);
     }
+
+    public avaliableColors MixColors(avaliableColors colorA, avaliableColors colorB){
+        //TODO: Implement Mixing of Colors
+        return avaliableColors.BLUE;
+    }
 }
+
