@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
     {
     	float rotate = 0;
         rotate = Input.GetAxis("Horizontal") * rotationSpeed;
-        transform.Rotate(Vector3.up, rotate  * Time.deltaTime);
-        transform.Translate(transform.forward * speed * Time.deltaTime);
-
+        transform.Rotate(Vector3.up, rotate  * Time.fixedDeltaTime);
+        //transform.Translate(transform.forward * speed * Time.fixedDeltaTime);
+        rb.velocity = transform.forward * speed;
     }
 
     private void OnTriggerEnter(Collider other)
