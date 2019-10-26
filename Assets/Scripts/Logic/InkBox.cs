@@ -15,17 +15,17 @@ public enum avaliableColors
 
 public class InkBox : MonoBehaviour
 {
-    public Dictionary<string, Color> colors = new Dictionary<string, Color>();
+    public Dictionary<avaliableColors, Color> colors = new Dictionary<avaliableColors, Color>();
 
     void Awake()
     {
-        colors.Add("RED", Color.red);
-        colors.Add("YELLOW", Color.yellow);
-        colors.Add("BLUE", Color.blue);
-        colors.Add("ORANGE", new Color(1.0f,.5f,0f));
-        colors.Add("GREEN", Color.green);
-        colors.Add("PURPLE", new Color(.7f, 0f, .7f));
-        colors.Add("WHITE", Color.white);
+        colors.Add(avaliableColors.RED, Color.red);
+        colors.Add(avaliableColors.YELLOW, Color.yellow);
+        colors.Add(avaliableColors.BLUE, Color.blue);
+        colors.Add(avaliableColors.ORANGE, new Color(1.0f,.5f,0f));
+        colors.Add(avaliableColors.GREEN, Color.green);
+        colors.Add(avaliableColors.PURPLE, new Color(.7f, 0f, .7f));
+        colors.Add(avaliableColors.WHITE, Color.white);
     }
 
     public avaliableColors MixColors(avaliableColors colorA, avaliableColors colorB){

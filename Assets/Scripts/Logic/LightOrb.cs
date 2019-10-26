@@ -27,7 +27,7 @@ public class LightOrb : Collectible
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         inkBox = FindObjectOfType<InkBox>();
         rigidbody = gameObject.GetComponent<Rigidbody>();
@@ -81,7 +81,8 @@ public class LightOrb : Collectible
     }
 
     public void SetInk(avaliableColors newInk){
-        Color newColor = inkBox.colors[newInk.ToString()];
+        //Debug.Log("New Ink: " + newInk.ToString() + " " + inkBox.colors[newInk.ToString()]);
+        Color newColor = inkBox.colors[newInk];
         ink = newInk;
         OrbColor = newColor;
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
