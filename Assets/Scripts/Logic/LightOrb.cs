@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyButtons;
 
 public class LightOrb : Collectible
 {
@@ -13,8 +14,7 @@ public class LightOrb : Collectible
     float fuseTimeInS = 0.5f;
     float fuseStart;
 
-    [ExecuteAlways] public avaliableColors ink;
-    // TODO: Make ink live update on change in Editor
+    public avaliableColors ink;
 
     private Color _orbColor;
     public Color OrbColor {
@@ -87,6 +87,10 @@ public class LightOrb : Collectible
         OrbColor = newColor;
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
         meshRenderer.material.SetColor("_EmissionColor", newColor);
+    }
+
+    [Button] public void SetInk(){
+        SetInk(ink);
     }
 
     private bool IsCloseEnoughToOtherOrb(){
