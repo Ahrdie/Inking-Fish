@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             closestSubfish = newSubfish;
         }
         else{
-            newSubfish = Instantiate(subfishPrefab, transform.position + transform.right * 0.8f, transform.rotation);
+            newSubfish = Instantiate(subfishPrefab, transform.position + transform.right * 1.1f, transform.rotation);
             newSubfish.GetComponent<SubfishController>().SetNewFrontFish(this.gameObject);
             closestSubfish = newSubfish;
         }
