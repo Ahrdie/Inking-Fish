@@ -9,13 +9,26 @@ public class PlayerController : MonoBehaviour
 	public float rotationSpeed;
 	public Rigidbody rb;
 	public Vector3 torque;
-    // Start is called before the first frame update
+    private Collider collider;
+
     void Start()
     {
-       rb = this.GetComponent<Rigidbody>();
+        rb = this.GetComponent<Rigidbody>();
+        collider = this.GetComponent<Collider>();
+
     }
 
- 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            EnableFeeding();
+        }
+        if (Input.GetMouseButtonUp(0)){
+            DisableFeeding();
+        }
+    }
+
     void FixedUpdate()
     {
     	float rotate = 0;
@@ -25,9 +38,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
- 
+    private void EnableFeeding(){
+        Debug.Log("Enable Feeding");
+    }
 
-
+    private void DisableFeeding(){
+        Debug.Log("Disable Feeding");
+    }
  }
 
 
