@@ -6,16 +6,28 @@ public class PlayerController : MonoBehaviour
 {
 
 	public float speed;
+	public float rotationSpeed;
+	public Rigidbody rb;
+	public Vector3 torque;
     // Start is called before the first frame update
     void Start()
     {
-        speed = 1f;
+       rb = this.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+ 
+    void FixedUpdate()
     {
-        transform.Translate(speed*Input.GetAxis("Horizontal")*Time.deltaTime,0f,speed*Input.GetAxis("Vertical")*Time.deltaTime);
+    	float rotate = 0;
+        rotate = Input.GetAxis("Horizontal") * rotationSpeed;
+        transform.Rotate(Vector3.up, rotate  * Time.deltaTime);
+        transform.Translate(transform.forward * speed * Time.deltaTime);
+
     }
+
+ 
+
+
  }
+
 
