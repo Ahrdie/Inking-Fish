@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	public Rigidbody rb;
     private Collider collider;
     List<avaliableColors> collectedOrbs = new List<avaliableColors>();
-
+    public Animator jawAnimator;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,11 +53,13 @@ public class PlayerController : MonoBehaviour
     private void EnableFeeding(){
         Debug.Log("Enable Feeding");
         collider.isTrigger = true;
+        jawAnimator.SetBool("eats", true);
     }
 
     private void DisableFeeding(){
         Debug.Log("Disable Feeding");
         collider.isTrigger = false;
+        jawAnimator.SetBool("eats", false);
     }
  }
 

@@ -1,8 +1,14 @@
 fileFormatVersion: 2
-guid: f88b0c9fdd3a5472ead755a463ad038a
+guid: 654e8ffdfcfa8456a91dff61d97b74b2
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -4665746491588777871
+    second: flosse02|ArmatureAction
+  - first:
+      74: -3486491649473872483
+    second: flosse02|ArmatureAction.002
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -87,7 +93,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
