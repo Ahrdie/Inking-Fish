@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up, rotate  * Time.fixedDeltaTime);
         //transform.Translate(transform.forward * speed * Time.fixedDeltaTime);
         rb.velocity = -transform.right * speed;
+        Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * 0.5f);
+        //transform.Rotate( Quaternion.RotateTowards(transform.rotation, Vector3.up,180f);
     }
 
     private void OnTriggerEnter(Collider other)
