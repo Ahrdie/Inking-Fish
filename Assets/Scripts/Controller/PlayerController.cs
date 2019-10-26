@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     List<avaliableColors> collectedOrbs = new List<avaliableColors>();
     public Animator jawAnimator;
     private GameObject closestSubfish;
+    private bool eating = false;
 
     void Start()
     {
@@ -37,23 +38,34 @@ public class PlayerController : MonoBehaviour
     	float rotate = 0;
         rotate = Input.GetAxis("Horizontal") * rotationSpeed;
         transform.Rotate(Vector3.up, rotate  * Time.fixedDeltaTime);
-        //transform.Translate(transform.forward * speed * Time.fixedDeltaTime);
         rb.velocity = -transform.right * speed;
         Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * 0.5f);
-        //transform.Rotate( Quaternion.RotateTowards(transform.rotation, Vector3.up,180f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.GetComponent<Collectible>()){
-            Debug.Log("Collectible found! " + other.gameObject.name);
-            LightOrb otherOrb = other.gameObject.GetComponent<LightOrb>();
-            if(otherOrb != null){
-                collectedOrbs.Add(otherOrb.ink);
-                AddSubfish(otherOrb.ink);
-                Destroy(other.gameObject);
-            }
+
+    //private void OnColliderHit(Collision collision)
+    //{
+    //    GameObject other = collision.gameObject;
+    //    Debug.Log(other.name);
+    //    if (other.gameObject.GetComponent<Collectible>()){
+    //        Debug.Log("Collectible found! " + other.gameObject.name);
+    //        LightOrb otherOrb = other.gameObject.GetComponent<LightOrb>();
+    //        if(otherOrb != null){
+    //            collectedOrbs.Add(otherOrb.ink);
+    //            AddSubfish(otherOrb.ink);
+    //            Destroy(other.gameObject);
+    //        }
+    //    }
+    //}
+
+    public void EatOrb(GameObject objectToEat){
+        if (eating)
+        {
+            LightOrb otherOrb = objectToEat.GetComponent<LightOrb>();
+            collectedOrbs.Add(otherOrb.ink);
+            AddSubfish(otherOrb.ink);
+            Destroy(objectToEat);
         }
     }
 
@@ -78,13 +90,13 @@ public class PlayerController : MonoBehaviour
 
     private void EnableFeeding(){
         Debug.Log("Enable Feeding");
-        collider.isTrigger = true;
+        eating = true;
         jawAnimator.SetBool("eats", true);
     }
 
     private void DisableFeeding(){
         Debug.Log("Disable Feeding");
-        collider.isTrigger = false;
+        eating = false;
         jawAnimator.SetBool("eats", false);
     }
  }
