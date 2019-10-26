@@ -105,6 +105,7 @@ public class LightOrb : Collectible
         Debug.Log("Fuse to " + inkBox.MixColors(ink, otherOrb.ink));
         SetInk(inkBox.MixColors(ink, otherOrb.ink));
         Destroy(otherOrb.gameObject);
+        GetComponent<Collider>().enabled = true;
         attractingToOtherOrb = false;
         rigidbody.velocity = Vector3.zero;
     }
