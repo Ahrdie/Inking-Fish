@@ -82,7 +82,7 @@ public class LightOrb : Collectible
         ink = newInk;
         OrbColor = newColor;
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
-        meshRenderer.material.color = newColor;
+        meshRenderer.material.SetColor("_EmissionColor", newColor);
     }
 
     private bool IsCloseEnoughToOtherOrb(){
