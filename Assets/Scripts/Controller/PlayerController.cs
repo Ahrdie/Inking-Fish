@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 	public float rotationSpeed;
 	public Rigidbody rb;
     private Collider collider;
+    List<avaliableColors> collectedOrbs = new List<avaliableColors>();
 
     void Start()
     {
@@ -41,6 +42,11 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.GetComponent<Collectible>()){
             Debug.Log("Collectible found! " + other.gameObject.name);
+            LightOrb otherOrb = other.gameObject.GetComponent<LightOrb>();
+            if(otherOrb != null){
+                collectedOrbs.Add(otherOrb.ink);
+                Destroy(other.gameObject);
+            }
         }
     }
 

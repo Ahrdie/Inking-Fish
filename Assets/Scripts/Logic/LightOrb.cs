@@ -34,9 +34,11 @@ public class LightOrb : Collectible
         SetInk(ink);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if(other.gameObject.GetComponent<LightOrb>() != null){
+        GameObject other = collision.gameObject;
+        if (other.gameObject.GetComponent<LightOrb>() != null)
+        {
             otherOrb = other.gameObject.GetComponent<LightOrb>();
 
             if (!otherOrb.attractingToOtherOrb)
@@ -63,6 +65,7 @@ public class LightOrb : Collectible
     private void StartAttractingOtherOrb(){
         attractingToOtherOrb = true;
         fuseStart = Time.time;
+        GetComponent<Collider>().enabled = false;
     }
 
     public void StartAttractingOtherOrb(LightOrb orbToAttract){
