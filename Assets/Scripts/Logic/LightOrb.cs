@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyButtons;
 
 public class LightOrb : Collectible
 {
@@ -13,8 +14,7 @@ public class LightOrb : Collectible
     float fuseTimeInS = 0.5f;
     float fuseStart;
 
-    [ExecuteAlways] public avaliableColors ink;
-    // TODO: Make ink live update on change in Editor
+    public avaliableColors ink;
 
     private Color _orbColor;
     public Color OrbColor {
@@ -77,16 +77,18 @@ public class LightOrb : Collectible
         Vector3 toOrb = otherOrb.gameObject.transform.position - transform.position;
         attractionIncrement += 0.005f;
         transform.position = Vector3.Lerp(transform.position, otherOrb.gameObject.transform.position, attractionIncrement);
-        //rigidbody.AddForce(toOrb * attractionIncrement);
     }
 
     public void SetInk(avaliableColors newInk){
-        //Debug.Log("New Ink: " + newInk.ToString() + " " + inkBox.colors[newInk.ToString()]);
         Color newColor = inkBox.colors[newInk];
         ink = newInk;
         OrbColor = newColor;
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
         meshRenderer.material.SetColor("_EmissionColor", newColor);
+    }
+
+    [Button] public void SetInk(){
+        SetInk(ink);
     }
 
     private bool IsCloseEnoughToOtherOrb(){

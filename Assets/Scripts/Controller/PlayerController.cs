@@ -7,10 +7,13 @@ public class PlayerController : MonoBehaviour
 
 	public float speed;
 	public float rotationSpeed;
+    public GameObject subfishPrefab;
 	public Rigidbody rb;
     private Collider collider;
     List<avaliableColors> collectedOrbs = new List<avaliableColors>();
     public Animator jawAnimator;
+    private GameObject closestSubfish;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,9 +48,29 @@ public class PlayerController : MonoBehaviour
             LightOrb otherOrb = other.gameObject.GetComponent<LightOrb>();
             if(otherOrb != null){
                 collectedOrbs.Add(otherOrb.ink);
+                AddSubfish(otherOrb.ink);
                 Destroy(other.gameObject);
             }
         }
+    }
+
+    private void AddSubfish(avaliableColors fishColor)
+    {
+        GameObject newSubfish;
+        if (closestSubfish != null)
+        {
+            newSubfish = Instantiate(subfishPrefab, closestSubfish.transform.position + transform.right * 0.5f, closestSubfish.transform.rotation);
+            newSubfish.GetComponent<SubfishController>().SetNewFrontFish(closestSubfish);
+            closestSubfish = newSubfish;
+        }
+        else{
+            newSubfish = Instantiate(subfishPrefab, transform.position + transform.right * 0.8f, transform.rotation);
+            newSubfish.GetComponent<SubfishController>().SetNewFrontFish(this.gameObject);
+            closestSubfish = newSubfish;
+        }
+
+        SubfishController newSubfishController = newSubfish.GetComponent<SubfishController>();
+        newSubfishController.SetInk(fishColor);
     }
 
     private void EnableFeeding(){
