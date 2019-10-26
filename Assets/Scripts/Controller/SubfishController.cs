@@ -36,7 +36,13 @@ public class SubfishController : MonoBehaviour
         ink = newInk;
         Color newColor = inkBox.colors[newInk];
         GetComponent<Light>().color = newColor;
-        GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", newColor);
+        MeshRenderer[] emittingMeshes = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer mesh in emittingMeshes)
+        {
+            if(mesh.gameObject.CompareTag("Emitting")){
+                mesh.material.SetColor("_EmissionColor", newColor);
+            }
+        }
     }
 
     public void SetNewFrontFish(GameObject newFrontFish){
