@@ -9,7 +9,8 @@ public enum avaliableColors
     BLUE,
     ORANGE,
     GREEN,
-    MAGENTA
+    PURPLE,
+    WHITE
 }
 
 public class InkBox : MonoBehaviour
@@ -21,14 +22,48 @@ public class InkBox : MonoBehaviour
         colors.Add("RED", Color.red);
         colors.Add("YELLOW", Color.yellow);
         colors.Add("BLUE", Color.blue);
-        colors.Add("ORANGE", new Color(.5f,.5f,0f));
+        colors.Add("ORANGE", new Color(1.0f,.5f,0f));
         colors.Add("GREEN", Color.green);
-        colors.Add("MAGENTA", Color.magenta);
+        colors.Add("PURPLE", new Color(.7f, 0f, .7f));
+        colors.Add("WHITE", Color.white);
     }
 
     public avaliableColors MixColors(avaliableColors colorA, avaliableColors colorB){
-        //TODO: Implement Mixing of Colors
-        return avaliableColors.BLUE;
+        if(colorA == colorB){
+            return colorA;
+        } else {
+            List<avaliableColors> colorsToMix = new List<avaliableColors>();
+            colorsToMix.Add(colorA);
+            colorsToMix.Add(colorB);
+
+            if (colorsToMix.Contains(avaliableColors.RED)){
+                colorsToMix.Remove(avaliableColors.RED);
+                switch (colorsToMix[0])
+                {
+                    case avaliableColors.BLUE:
+                        return avaliableColors.PURPLE;
+                    case avaliableColors.YELLOW:
+                        return avaliableColors.ORANGE;
+                    default:
+                        return avaliableColors.WHITE;
+                }
+            }
+            if (colorsToMix.Contains(avaliableColors.BLUE))
+            {
+                colorsToMix.Remove(avaliableColors.BLUE);
+                switch (colorsToMix[0])
+                {
+                    case avaliableColors.YELLOW:
+                        return avaliableColors.GREEN;
+                    default:
+                        return avaliableColors.WHITE;
+                }
+            }
+            else
+            {
+                return avaliableColors.WHITE;
+            }
+        }
     }
 }
 

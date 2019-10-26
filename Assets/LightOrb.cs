@@ -13,8 +13,8 @@ public class LightOrb : Collectible
     float fuseTimeInS = 0.5f;
     float fuseStart;
 
-    public avaliableColors ink;
-    // TODO: Make ink choosable in inspector
+    [ExecuteAlways] public avaliableColors ink;
+    // TODO: Make ink live update on change in Editor
 
     private Color _orbColor;
     public Color OrbColor {
@@ -31,7 +31,7 @@ public class LightOrb : Collectible
     {
         inkBox = FindObjectOfType<InkBox>();
         rigidbody = gameObject.GetComponent<Rigidbody>();
-        SetInk(avaliableColors.RED);
+        SetInk(ink);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -96,6 +96,7 @@ public class LightOrb : Collectible
     }
 
     private void FuseOrbs(){
+        Debug.Log("Fuse to " + inkBox.MixColors(ink, otherOrb.ink));
         SetInk(inkBox.MixColors(ink, otherOrb.ink));
         Destroy(otherOrb.gameObject);
         attractingToOtherOrb = false;
