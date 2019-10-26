@@ -10,7 +10,7 @@ public class LightOrb : Collectible
     private LightOrb otherOrb;
     public float fuseDistance = 0.2f;
     float attractionIncrement = 0.01f;
-    float fuseTimeInS = 2.5f;
+    float fuseTimeInS = 0.5f;
     float fuseStart;
 
     public avaliableColors ink;
@@ -41,9 +41,8 @@ public class LightOrb : Collectible
 
             if (!otherOrb.attractingToOtherOrb)
             {
-                attractingToOtherOrb = true;
-                fuseStart = Time.time;
-
+                StartAttractingOtherOrb();
+                otherOrb.StartAttractingOtherOrb(this);
             }
 
             Debug.Log("Other Orb found");
@@ -59,6 +58,16 @@ public class LightOrb : Collectible
                 FuseOrbs();
             }
         }
+    }
+
+    private void StartAttractingOtherOrb(){
+        attractingToOtherOrb = true;
+        fuseStart = Time.time;
+    }
+
+    public void StartAttractingOtherOrb(LightOrb orbToAttract){
+        otherOrb = orbToAttract;
+        StartAttractingOtherOrb();
     }
 
     private void AttractToOtherOrb(){
