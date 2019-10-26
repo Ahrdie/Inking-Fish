@@ -8,23 +8,22 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	public float rotationSpeed;
 	public Rigidbody rb;
-	public Vector3 torque;
     private Collider collider;
 
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
-        collider = this.GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        collider = GetComponent<Collider>();
 
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             EnableFeeding();
         }
-        if (Input.GetMouseButtonUp(0)){
+        if (Input.GetKeyUp(KeyCode.F)){
             DisableFeeding();
         }
     }
@@ -38,12 +37,21 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<Collectible>()){
+            Debug.Log("Collectible found! " + other.gameObject.name);
+        }
+    }
+
     private void EnableFeeding(){
         Debug.Log("Enable Feeding");
+        collider.isTrigger = true;
     }
 
     private void DisableFeeding(){
         Debug.Log("Disable Feeding");
+        collider.isTrigger = false;
     }
  }
 
