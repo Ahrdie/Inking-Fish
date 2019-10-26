@@ -77,11 +77,9 @@ public class LightOrb : Collectible
         Vector3 toOrb = otherOrb.gameObject.transform.position - transform.position;
         attractionIncrement += 0.005f;
         transform.position = Vector3.Lerp(transform.position, otherOrb.gameObject.transform.position, attractionIncrement);
-        //rigidbody.AddForce(toOrb * attractionIncrement);
     }
 
     public void SetInk(avaliableColors newInk){
-        //Debug.Log("New Ink: " + newInk.ToString() + " " + inkBox.colors[newInk.ToString()]);
         Color newColor = inkBox.colors[newInk];
         ink = newInk;
         OrbColor = newColor;
