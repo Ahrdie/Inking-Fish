@@ -45,8 +45,8 @@ public class ObjectionManager : MonoBehaviour
 
     private void BuildUpTask(Task task){
         loadedTask = task;
-        float width = emptyFishPrefab.GetComponent<RectTransform>().rect.width;
-        int space = 5;
+        float width = emptyFishPrefab.GetComponentInChildren<RectTransform>().rect.width;
+        int space = 35;
         float joinedWidth = width + space;
         int numberOfTasks = task.objectionItems.Count;
         float anchorLeft = -(numberOfTasks % 2 == 0 ? numberOfTasks/2 * joinedWidth : numberOfTasks/2 * joinedWidth - space/2);
@@ -57,15 +57,15 @@ public class ObjectionManager : MonoBehaviour
             fishItem.transform.Translate(new Vector3(anchorLeft + i * (joinedWidth),0.0f,0.0f));
             avaliableColors color = task.objectionItems[i];
             Color newColor = (inkBox.colors[color]);
-            newColor.a = 0.45f;
-            fishItem.GetComponent<Image>().color = newColor;
+            newColor.a = 0.60f;
+            fishItem.GetComponentInChildren<Image>().color = newColor;
         }
     }
 
     public void EatColor(avaliableColors colorToEat){
         if (colorToEat == loadedTask.objectionItems[orbsEaten])
         {
-            fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
+            fishItems[orbsEaten].GetComponentInChildren<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
     }
