@@ -7,18 +7,24 @@ public class Task
 {
     public List<avaliableColors> objectionItems = new List<avaliableColors>{
         avaliableColors.YELLOW,
-        avaliableColors.GREEN,
+        avaliableColors.GREEN/*,
         avaliableColors.BLUE,
         avaliableColors.RED,
         avaliableColors.RED,
         avaliableColors.ORANGE,
-        avaliableColors.RED
+        avaliableColors.RED*/
     };
 }
 
 public class ObjectionManager : MonoBehaviour
 {
     public GameObject emptyFishPrefab;
+    public GameObject startButton;
+    public GameObject reloadButton;
+    public GameObject titleImage;
+    public GameObject successPose;
+    public AudioClip successAudio;
+
     private List<GameObject> fishItems = new List<GameObject>();
     public Sprite filledFishSprite;
     private InkBox inkBox;
@@ -35,7 +41,6 @@ public class ObjectionManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         inkBox = FindObjectOfType<InkBox>();
-        BuildUpTask(testTask);
     }
 
     private void BuildUpTask(Task task){
@@ -63,5 +68,38 @@ public class ObjectionManager : MonoBehaviour
             fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
+    }
+
+    public bool CheckIfDone(){
+        if (orbsEaten == loadedTask.objectionItems.Count){
+            EndGame(true);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public void StartGame(){
+        titleImage.active = false;
+        startButton.active = false;
+        player.swimming = true;
+
+        BuildUpTask(testTask);
+    }
+
+    public void EndGame(bool success){
+        reloadButton.active = true;
+        player.swimming = false;
+        AudioSource audioSource = player.GetComponentInChildren<AudioSource>();
+        audioSource.Stop();
+        audioSource.clip = successAudio;
+        audioSource.loop = false;
+        audioSource.Play();
+        Camera camera = FindObjectOfType<Camera>();
+    }
+
+    public void RestartScene(){
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
