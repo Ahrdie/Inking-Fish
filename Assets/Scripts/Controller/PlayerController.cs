@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     public Animator jawAnimator;
     private GameObject closestSubfish;
     private bool eating = false;
+    private ObjectionManager objectionManager;
+    private List<GameObject> subfishes = new List<GameObject>();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
-
+        objectionManager = FindObjectOfType<ObjectionManager>();
     }
 
     private void Update()
@@ -43,27 +45,12 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * 0.5f);
     }
 
-
-    //private void OnColliderHit(Collision collision)
-    //{
-    //    GameObject other = collision.gameObject;
-    //    Debug.Log(other.name);
-    //    if (other.gameObject.GetComponent<Collectible>()){
-    //        Debug.Log("Collectible found! " + other.gameObject.name);
-    //        LightOrb otherOrb = other.gameObject.GetComponent<LightOrb>();
-    //        if(otherOrb != null){
-    //            collectedOrbs.Add(otherOrb.ink);
-    //            AddSubfish(otherOrb.ink);
-    //            Destroy(other.gameObject);
-    //        }
-    //    }
-    //}
-
     public void EatOrb(GameObject objectToEat){
         if (eating)
         {
             LightOrb otherOrb = objectToEat.GetComponent<LightOrb>();
             collectedOrbs.Add(otherOrb.ink);
+            objectionManager.EatColor(otherOrb.ink);
             AddSubfish(otherOrb.ink);
             Destroy(objectToEat);
         }
@@ -84,6 +71,8 @@ public class PlayerController : MonoBehaviour
             closestSubfish = newSubfish;
         }
 
+        subfishes.Add(newSubfish);
+        UpdateSubfishes();
         SubfishController newSubfishController = newSubfish.GetComponent<SubfishController>();
         newSubfishController.SetInk(fishColor);
     }
@@ -99,6 +88,14 @@ public class PlayerController : MonoBehaviour
         eating = false;
         jawAnimator.SetBool("eats", false);
     }
- }
+
+    private void UpdateSubfishes(){
+        float springforcePerFish = 2.0f;
+        for (int i = 0; i < subfishes.Count; i++){
+            JointSpring spring = subfishes[i].GetComponent<HingeJoint>().spring;
+            spring.spring = springforcePerFish * (subfishes.Count - i);
+        }
+    }
+}
 
 

@@ -6,7 +6,7 @@ public class OrbRecognizer : MonoBehaviour
 {
     public PlayerController playerController = new PlayerController();
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         Debug.Log(other.name);
         if (other.gameObject.GetComponent<Collectible>())
