@@ -65,7 +65,7 @@ public class ObjectionManager : MonoBehaviour
     public void EatColor(avaliableColors colorToEat){
         if (colorToEat == loadedTask.objectionItems[orbsEaten])
         {
-            fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
+            fishItems[orbsEaten].GetComponentInChildren<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
     }
