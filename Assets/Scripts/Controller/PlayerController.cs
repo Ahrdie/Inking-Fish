@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
             objectionManager.EatColor(otherOrb.ink);
             AddSubfish(otherOrb.ink);
             Destroy(objectToEat);
+            objectionManager.CheckIfDone();
         }
     }
 

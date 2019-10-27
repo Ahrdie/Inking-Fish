@@ -23,6 +23,7 @@ public class ObjectionManager : MonoBehaviour
     public GameObject reloadButton;
     public GameObject titleImage;
     public GameObject successPose;
+    public AudioClip successAudio;
 
     private List<GameObject> fishItems = new List<GameObject>();
     public Sprite filledFishSprite;
@@ -67,7 +68,6 @@ public class ObjectionManager : MonoBehaviour
             fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
-        CheckIfDone();
     }
 
     public bool CheckIfDone(){
@@ -91,6 +91,11 @@ public class ObjectionManager : MonoBehaviour
     public void EndGame(bool success){
         reloadButton.active = true;
         player.swimming = false;
+        AudioSource audioSource = player.GetComponentInChildren<AudioSource>();
+        audioSource.Stop();
+        audioSource.clip = successAudio;
+        audioSource.loop = false;
+        audioSource.Play();
         Camera camera = FindObjectOfType<Camera>();
     }
 
