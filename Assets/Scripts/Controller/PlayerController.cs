@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public Animator jawAnimator;
     private GameObject closestSubfish;
     private bool eating = false;
+    public bool swimming = false;
     private ObjectionManager objectionManager;
     private List<GameObject> subfishes = new List<GameObject>();
 
@@ -37,12 +38,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-    	float rotate = 0;
-        rotate = Input.GetAxis("Horizontal") * rotationSpeed;
-        transform.Rotate(Vector3.up, rotate  * Time.fixedDeltaTime);
-        rb.velocity = -transform.right * speed;
-        Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * 0.5f);
+        if (swimming)
+        {
+            float rotate = 0;
+            rotate = Input.GetAxis("Horizontal") * rotationSpeed;
+            transform.Rotate(Vector3.up, rotate * Time.fixedDeltaTime);
+            rb.velocity = -transform.right * speed;
+            Quaternion q = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.fixedDeltaTime * 0.5f);
+        }
     }
 
     public void EatOrb(GameObject objectToEat){
@@ -95,6 +99,10 @@ public class PlayerController : MonoBehaviour
             JointSpring spring = subfishes[i].GetComponent<HingeJoint>().spring;
             spring.spring = springforcePerFish * (subfishes.Count - i);
         }
+    }
+
+    public void StartSwimming(){
+        swimming = true;
     }
 }
 

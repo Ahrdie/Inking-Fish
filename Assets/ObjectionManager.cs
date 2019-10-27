@@ -19,6 +19,10 @@ public class Task
 public class ObjectionManager : MonoBehaviour
 {
     public GameObject emptyFishPrefab;
+    public GameObject startButton;
+    public GameObject reloadButton;
+    public GameObject titleImage;
+
     private List<GameObject> fishItems = new List<GameObject>();
     public Sprite filledFishSprite;
     private InkBox inkBox;
@@ -35,7 +39,6 @@ public class ObjectionManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         inkBox = FindObjectOfType<InkBox>();
-        BuildUpTask(testTask);
     }
 
     private void BuildUpTask(Task task){
@@ -63,5 +66,16 @@ public class ObjectionManager : MonoBehaviour
             fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
+    }
+
+    public void StartGame(){
+        titleImage.active = false;
+        startButton.active = false;
+
+        BuildUpTask(testTask);
+    }
+
+    public void EndGame(bool success){
+        reloadButton.active = true;
     }
 }
