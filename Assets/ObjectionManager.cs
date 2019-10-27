@@ -22,7 +22,7 @@ public class ObjectionManager : MonoBehaviour
     public GameObject startButton;
     public GameObject reloadButton;
     public GameObject titleImage;
-    public GameObject successPose;
+    public AudioSource audioSource;
     public AudioClip successAudio;
 
     private List<GameObject> fishItems = new List<GameObject>();
@@ -91,7 +91,6 @@ public class ObjectionManager : MonoBehaviour
     public void EndGame(bool success){
         reloadButton.active = true;
         player.swimming = false;
-        AudioSource audioSource = player.GetComponentInChildren<AudioSource>();
         audioSource.Stop();
         audioSource.clip = successAudio;
         audioSource.loop = false;
