@@ -22,8 +22,10 @@ public class ObjectionManager : MonoBehaviour
     public GameObject startButton;
     public GameObject reloadButton;
     public GameObject titleImage;
-    public GameObject successPose;
+    public AudioSource audioSource;
     public AudioClip successAudio;
+    public Camera camera;
+    private bool gameEnd = false;
 
     private List<GameObject> fishItems = new List<GameObject>();
     public Sprite filledFishSprite;
@@ -41,6 +43,14 @@ public class ObjectionManager : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         inkBox = FindObjectOfType<InkBox>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (gameEnd){
+            camera.transform.RotateAround(player.gameObject.transform.up, Time.fixedDeltaTime * -0.5f);
+            camera.transform.Translate(Vector3.right * 0.05f);
+        }
     }
 
     private void BuildUpTask(Task task){
@@ -91,12 +101,11 @@ public class ObjectionManager : MonoBehaviour
     public void EndGame(bool success){
         reloadButton.active = true;
         player.swimming = false;
-        AudioSource audioSource = player.GetComponentInChildren<AudioSource>();
         audioSource.Stop();
         audioSource.clip = successAudio;
         audioSource.loop = false;
         audioSource.Play();
-        Camera camera = FindObjectOfType<Camera>();
+        gameEnd = true;
     }
 
     public void RestartScene(){
