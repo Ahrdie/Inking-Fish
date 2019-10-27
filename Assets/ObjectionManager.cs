@@ -7,12 +7,12 @@ public class Task
 {
     public List<avaliableColors> objectionItems = new List<avaliableColors>{
         avaliableColors.YELLOW,
-        avaliableColors.GREEN/*,
+        avaliableColors.PURPLE,
         avaliableColors.BLUE,
-        avaliableColors.RED,
-        avaliableColors.RED,
         avaliableColors.ORANGE,
-        avaliableColors.RED*/
+        avaliableColors.GREEN,
+        avaliableColors.YELLOW,
+        avaliableColors.RED
     };
 }
 
