@@ -7,12 +7,12 @@ public class Task
 {
     public List<avaliableColors> objectionItems = new List<avaliableColors>{
         avaliableColors.YELLOW,
-        avaliableColors.GREEN,
+        avaliableColors.GREEN/*,
         avaliableColors.BLUE,
         avaliableColors.RED,
         avaliableColors.RED,
         avaliableColors.ORANGE,
-        avaliableColors.RED
+        avaliableColors.RED*/
     };
 }
 
@@ -22,6 +22,7 @@ public class ObjectionManager : MonoBehaviour
     public GameObject startButton;
     public GameObject reloadButton;
     public GameObject titleImage;
+    public GameObject successPose;
 
     private List<GameObject> fishItems = new List<GameObject>();
     public Sprite filledFishSprite;
@@ -66,16 +67,34 @@ public class ObjectionManager : MonoBehaviour
             fishItems[orbsEaten].GetComponent<Image>().sprite = filledFishSprite;
             orbsEaten++;
         }
+        CheckIfDone();
+    }
+
+    public bool CheckIfDone(){
+        if (orbsEaten == loadedTask.objectionItems.Count){
+            EndGame(true);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public void StartGame(){
         titleImage.active = false;
         startButton.active = false;
+        player.swimming = true;
 
         BuildUpTask(testTask);
     }
 
     public void EndGame(bool success){
         reloadButton.active = true;
+        player.swimming = false;
+        Camera camera = FindObjectOfType<Camera>();
+    }
+
+    public void RestartScene(){
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
